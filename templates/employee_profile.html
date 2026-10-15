@@ -1,0 +1,90 @@
+
+{% extends "base.html" %}
+
+{% block title %}My Profile{% endblock %}
+{% block topbar_title %}My Profile{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+    <h1 class="page-heading">My Profile</h1>
+    <p class="muted mb-0">Your account and employee information.</p>
+</div>
+
+<div class="panel p-4">
+
+    <div class="d-flex flex-wrap align-items-center gap-3 pb-4 mb-4 border-bottom">
+        <div class="avatar" style="width:64px;height:64px;font-size:24px;">
+            {{ request.user.username|first|upper }}
+        </div>
+
+        <div>
+            <h2 class="section-title mb-1">
+                {{ request.user.get_full_name|default:request.user.username }}
+            </h2>
+            <p class="muted mb-0">{{ request.user.username }}</p>
+        </div>
+
+        <span class="badge rounded-pill text-bg-light ms-md-auto">
+            {{ employee.get_role_display }}
+        </span>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <small class="muted d-block mb-1">First Name</small>
+            <div class="fw-semibold">
+                {{ request.user.first_name|default:"Not provided" }}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <small class="muted d-block mb-1">Last Name</small>
+            <div class="fw-semibold">
+                {{ request.user.last_name|default:"Not provided" }}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <small class="muted d-block mb-1">Username</small>
+            <div class="fw-semibold">{{ request.user.username }}</div>
+        </div>
+
+        <div class="col-md-6">
+            <small class="muted d-block mb-1">Email</small>
+            <div class="fw-semibold">
+                {{ request.user.email|default:"Not provided" }}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <small class="muted d-block mb-1">Employee ID</small>
+            <div class="fw-semibold">{{ employee.employee_id }}</div>
+        </div>
+
+        <div class="col-md-6">
+            <small class="muted d-block mb-1">Company</small>
+            <div class="fw-semibold">{{ employee.company.name }}</div>
+        </div>
+
+        <div class="col-md-6">
+            <small class="muted d-block mb-1">Department</small>
+            <div class="fw-semibold">{{ employee.department }}</div>
+        </div>
+
+        <div class="col-md-6">
+            <small class="muted d-block mb-1">Designation</small>
+            <div class="fw-semibold">{{ employee.designation }}</div>
+        </div>
+
+        <div class="col-md-6">
+            <small class="muted d-block mb-1">Joining Date</small>
+            <div class="fw-semibold">
+                {{ employee.joining_date|date:"d M Y" }}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

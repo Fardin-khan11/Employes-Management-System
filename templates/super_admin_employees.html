@@ -1,0 +1,64 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-heading d-flex justify-content-between align-items-center">
+    <div>
+        <h2>Employees</h2>
+        <p class="muted">Manage employees across all companies.</p>
+    </div>
+
+    <a href="{% url 'super_admin_add_employee' %}" class="btn btn-accent">
+        <i class="bi bi-plus-lg"></i> Add Employee
+    </a>
+</div>
+
+<div class="panel">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Company</th>
+                    <th>Employee ID</th>
+                    <th>Department</th>
+                    <th>Designation</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                <tr>
+                    <td>{{ employee.user.get_full_name|default:employee.user.username }}</td>
+                    <td>{{ employee.company.name }}</td>
+                    <td>{{ employee.employee_id }}</td>
+                    <td>{{ employee.department }}</td>
+                    <td>{{ employee.designation }}</td>
+                    <td>{{ employee.get_role_display }}</td>
+                    <td>
+                        <a href="{% url 'super_admin_edit_employee' employee.id %}"
+                           class="btn btn-sm btn-outline-secondary"
+                           title="Edit">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+
+                        <a href="{% url 'super_admin_delete_employee' employee.id %}"
+                           class="btn btn-sm btn-outline-danger"
+                           title="Delete">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center py-4">
+                        No employees found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

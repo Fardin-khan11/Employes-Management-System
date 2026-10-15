@@ -1,0 +1,78 @@
+
+{% extends "base.html" %}
+
+{% block title %}Employee Dashboard{% endblock %}
+{% block topbar_title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+    <h1 class="page-heading">
+        Hello, {{ request.user.first_name|default:request.user.username }}
+    </h1>
+    <p class="muted mb-0">Here are your employee details.</p>
+</div>
+
+<div class="panel p-4 mb-4">
+    <div class="d-flex flex-wrap align-items-center gap-3">
+        <div class="avatar" style="width:60px;height:60px;font-size:22px;">
+            {{ request.user.username|first|upper }}
+        </div>
+
+        <div>
+            <h2 class="section-title mb-1">
+                {{ request.user.get_full_name|default:request.user.username }}
+            </h2>
+            <p class="muted mb-0">
+                {{ employee.designation }} · {{ employee.department }}
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+
+    <div class="col-md-6">
+        <div class="stat-card">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="stat-label">EMPLOYEE ID</span>
+                <div class="stat-icon">
+                    <i class="bi bi-person-vcard"></i>
+                </div>
+            </div>
+
+            <div class="stat-number" style="font-size:28px;">
+                {{ employee.employee_id }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="stat-card">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="stat-label">DEPARTMENT</span>
+                <div class="stat-icon">
+                    <i class="bi bi-diagram-3"></i>
+                </div>
+            </div>
+
+            <div class="stat-number" style="font-size:28px;">
+                {{ employee.department }}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="panel p-4">
+    <h3 class="section-title mb-2">My Information</h3>
+    <p class="muted">
+        View your company, designation, joining date and account details.
+    </p>
+
+    <a href="{% url 'employee_profile' %}" class="btn btn-accent">
+        <i class="bi bi-person-circle me-2"></i>View My Profile
+    </a>
+</div>
+
+{% endblock %}

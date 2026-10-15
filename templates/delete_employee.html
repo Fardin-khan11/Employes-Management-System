@@ -1,0 +1,64 @@
+
+{% extends "base.html" %}
+
+{% block title %}Delete Employee{% endblock %}
+{% block topbar_title %}Delete Employee{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+    <h1 class="page-heading">Delete Employee</h1>
+    <p class="muted mb-0">Confirm the employee record you want to delete.</p>
+</div>
+
+<div class="panel p-4" style="max-width: 700px;">
+    <div class="d-flex align-items-start gap-3">
+        <div class="stat-icon"
+             style="background:#fff0e5;color:#c64f3c;">
+            <i class="bi bi-trash3"></i>
+        </div>
+
+        <div class="flex-grow-1">
+            <h3 class="section-title">Confirm deletion</h3>
+
+            <p class="muted">
+                Are you sure you want to delete
+                <strong>{{ employee.user.get_full_name|default:employee.user.username }}</strong>?
+            </p>
+
+            <div class="rounded-3 p-3 mb-4" style="background:#f7f6f2;">
+                <div class="mb-2">
+                    <small class="muted">Employee ID</small>
+                    <div class="fw-semibold">{{ employee.employee_id }}</div>
+                </div>
+                <div class="mb-2">
+                    <small class="muted">Department</small>
+                    <div class="fw-semibold">{{ employee.department }}</div>
+                </div>
+                <div>
+                    <small class="muted">Designation</small>
+                    <div class="fw-semibold">{{ employee.designation }}</div>
+                </div>
+            </div>
+
+            <div class="alert alert-warning small">
+                This action cannot be undone.
+            </div>
+
+            <form method="POST" class="d-flex flex-wrap gap-2">
+                {% csrf_token %}
+
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-trash me-2"></i>Delete Employee
+                </button>
+
+                <a href="{% url 'company_employees' %}"
+                   class="btn btn-outline-dark">
+                    Cancel
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

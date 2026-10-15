@@ -1,0 +1,64 @@
+
+{% extends "base.html" %}
+
+{% block title %}Delete Company{% endblock %}
+{% block topbar_title %}Delete Company{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+    <h1 class="page-heading">Delete Company</h1>
+    <p class="muted mb-0">Review the company before confirming deletion.</p>
+</div>
+
+<div class="panel p-4" style="max-width:700px;">
+
+    <div class="d-flex align-items-start gap-3">
+        <div class="stat-icon"
+             style="background:#fff0e5;color:#c64f3c;">
+            <i class="bi bi-building-x"></i>
+        </div>
+
+        <div class="flex-grow-1">
+            <h3 class="section-title">Confirm company deletion</h3>
+
+            <p class="muted">
+                Are you sure you want to delete
+                <strong>{{ company.name }}</strong>?
+            </p>
+
+            <div class="rounded-3 p-3 mb-3" style="background:#f7f6f2;">
+                <div class="mb-2">
+                    <small class="muted">Company name</small>
+                    <div class="fw-semibold">{{ company.name }}</div>
+                </div>
+
+                <div>
+                    <small class="muted">Company code</small>
+                    <div class="fw-semibold">{{ company.company_code }}</div>
+                </div>
+            </div>
+
+            <div class="alert alert-danger small">
+                <strong>Warning:</strong> With the current
+                <code>on_delete=models.CASCADE</code> relationship,
+                deleting this company can also delete its associated
+                employee records. Those employees' linked user accounts
+                may also be deleted through the Employee-to-User cascade.
+            </div>
+
+            <form method="POST" class="d-flex flex-wrap gap-2">
+                {% csrf_token %}
+
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-trash me-2"></i>Delete Company
+                </button>
+
+                <a href="{% url 'super_admin_companies' %}"
+                   class="btn btn-outline-dark">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

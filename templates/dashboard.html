@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block topbar_title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+    <h1 class="page-heading">
+        Welcome, {{ request.user.first_name|default:request.user.username }}
+    </h1>
+    <p class="muted mb-0">Your account overview.</p>
+</div>
+
+<div class="panel p-4">
+    <div class="d-flex align-items-center gap-3 mb-3">
+        <div class="stat-icon">
+            <i class="bi bi-grid"></i>
+        </div>
+
+        <div>
+            <h3 class="section-title mb-1">Dashboard</h3>
+            <p class="muted mb-0">You are successfully logged in.</p>
+        </div>
+    </div>
+
+    <a href="{% url 'employee_profile' %}" class="btn btn-accent">
+        <i class="bi bi-person-circle me-2"></i>View Profile
+    </a>
+</div>
+
+{% endblock %}
